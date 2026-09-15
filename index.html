@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>宵崎 奏 — Yoisaki Kanade | 25時、ナイトコードで。</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #08070c;
+  --lav:       #c9b0f5;
+  --lav-deep:  #9b82d4;
+  --lav-dim:   #6a5a90;
+  --text:      #e8e5f2;
+  --body-txt:  #a9a4bd;
+  --muted:     #8b879e;
+  --line:      rgba(201, 176, 245, .10);
+  --line-2:    rgba(201, 176, 245, .24);
+  --serif: "Noto Serif TC", "Songti TC", "Source Han Serif TC", "Yu Mincho",
+           "Hiragino Mincho ProN", Georgia, "Times New Roman", serif;
+  --sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC",
+           "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+  min-height: 100vh;
+  padding: clamp(28px, 5vw, 64px) 20px 72px;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 720px at 50% -18%, #1a1336 0%, rgba(26,19,54,0) 62%),
+    radial-gradient(760px 620px at 92% 112%, #150f28 0%, rgba(21,15,40,0) 64%),
+    linear-gradient(180deg, #08070c 0%, #0b0913 45%, #08070c 100%);
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform, opacity;
+}
+.orb-1 {
+  width: 560px; height: 560px;
+  top: -190px; left: 50%; margin-left: -280px;
+  background: radial-gradient(circle, rgba(155,130,212,.45) 0%, rgba(155,130,212,0) 70%);
+  animation: drift1 16s ease-in-out infinite alternate;
+}
+.orb-2 {
+  width: 460px; height: 460px;
+  bottom: -160px; right: -100px;
+  background: radial-gradient(circle, rgba(120,98,190,.35) 0%, rgba(120,98,190,0) 70%);
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+@keyframes drift1 {
+  0%   { transform: translate3d(-24px, 0, 0) scale(.92);   opacity: .55; }
+  100% { transform: translate3d(24px, 26px, 0) scale(1.08); opacity: .95; }
+}
+@keyframes drift2 {
+  0%   { transform: translate3d(0, 14px, 0) scale(1); }
+  100% { transform: translate3d(-40px, -24px, 0) scale(1.12); }
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: .035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 740px;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page > * { animation: rise .95s cubic-bezier(.22, .61, .36, 1) both; }
+.page > *:nth-child(1) { animation-delay: .05s; }
+.page > *:nth-child(2) { animation-delay: .14s; }
+.page > *:nth-child(3) { animation-delay: .23s; }
+.page > *:nth-child(4) { animation-delay: .32s; }
+.page > *:nth-child(5) { animation-delay: .41s; }
+.page > *:nth-child(6) { animation-delay: .50s; }
+.page > *:nth-child(7) { animation-delay: .59s; }
+.page > *:nth-child(8) { animation-delay: .68s; }
+.page > *:nth-child(9) { animation-delay: .77s; }
+
+/* Hero */
+.hero { text-align: center; padding: 12px 0 4px; margin-bottom: 34px; }
+.clock {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 6px 17px; margin-bottom: 26px;
+  border: 1px solid var(--line-2); border-radius: 999px;
+  background: rgba(201, 176, 245, .05);
+  font-size: .68rem; letter-spacing: .3em; text-indent: .3em;
+  color: var(--lav-deep); font-variant-numeric: tabular-nums;
+}
+.clock .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--lav); box-shadow: 0 0 10px var(--lav);
+  animation: blink 3.2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: .35; transform: scale(.78); }
+}
+.name {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 8.5vw, 3.75rem);
+  font-weight: 600; line-height: 1.25;
+  letter-spacing: .18em; text-indent: .18em;
+  background: linear-gradient(175deg, #ffffff 0%, #ddcfff 42%, #9b82d4 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 28px rgba(155, 130, 212, .45));
+}
+.roman {
+  margin-top: 16px; font-size: .7rem;
+  letter-spacing: .52em; text-indent: .52em; color: var(--muted);
+}
+.rule {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; margin-top: 28px;
+}
+.rule::before, .rule::after { content: ""; height: 1px; width: 76px; }
+.rule::before { background: linear-gradient(90deg, transparent, var(--line-2)); }
+.rule::after  { background: linear-gradient(90deg, var(--line-2), transparent); }
+.rule i {
+  width: 5px; height: 5px; background: var(--lav);
+  transform: rotate(45deg); box-shadow: 0 0 10px var(--lav);
+}
+
+/* 引言 */
+.quote { position: relative; text-align: center; padding: 30px 26px; margin-bottom: 34px; }
+.quote::before, .quote::after {
+  content: ""; position: absolute; left: 6%; right: 6%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-2), transparent);
+}
+.quote::before { top: 0; }
+.quote::after  { bottom: 0; }
+.quote p {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(.95rem, 2.5vw, 1.06rem);
+  letter-spacing: .07em; color: var(--lav);
+  text-shadow: 0 0 26px rgba(201, 176, 245, .35);
+}
+
+/* 圖片框 */
+.portrait {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  margin-bottom: 30px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(155,130,212,.20), transparent 62%),
+    linear-gradient(160deg, #14101f, #0a0810);
+  transition: border-color .6s ease, box-shadow .6s ease;
+}
+.portrait:hover {
+  border-color: var(--line-2);
+  box-shadow: 0 24px 70px -34px rgba(155, 130, 212, .75),
+              0 0 44px -22px rgba(201, 176, 245, .5);
+}
+.portrait img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 9s cubic-bezier(.19, 1, .22, 1);
+}
+.portrait:hover img { transform: scale(1.05); }
+.portrait::after {
+  content: ""; position: absolute; inset: auto 0 0 0;
+  height: 42%; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(8, 7, 12, .8));
+}
+.portrait.small {
+  aspect-ratio: 21 / 9; margin: 28px 0 24px; border-radius: 16px;
+}
+
+/* 卡片 */
+.card {
+  position: relative;
+  padding: clamp(24px, 4.2vw, 36px);
+  margin-bottom: 26px;
+  border: 1px solid var(--line); border-radius: 20px;
+  background: linear-gradient(165deg, rgba(255,255,255,.038), rgba(255,255,255,.012));
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  transition: border-color .55s ease, box-shadow .55s ease, transform .55s ease;
+}
+.card::before {
+  content: ""; position: absolute; top: 0; left: 16%; right: 16%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,176,245,.5), transparent);
+  opacity: 0; transition: opacity .55s ease;
+}
+.card:hover {
+  border-color: var(--line-2); transform: translateY(-3px);
+  box-shadow: 0 26px 70px -36px rgba(155, 130, 212, .8),
+              0 0 46px -24px rgba(201, 176, 245, .55);
+}
+.card:hover::before { opacity: 1; }
+.card h2 {
+  display: flex; align-items: center; gap: 13px;
+  margin-bottom: 24px; font-family: var(--serif);
+  font-size: 1.02rem; font-weight: 600;
+  letter-spacing: .24em; color: var(--lav);
+}
+.card h2::before {
+  content: ""; flex: none; width: 6px; height: 6px;
+  background: var(--lav); transform: rotate(45deg);
+  box-shadow: 0 0 12px rgba(201, 176, 245, .95);
+}
+.card p {
+  font-size: .93rem; line-height: 2.05;
+  letter-spacing: .025em; color: var(--body-txt);
+}
+
+/* 檔案列 */
+.file { display: grid; }
+.row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 18px; padding: 15px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, .05);
+  transition: background .35s ease;
+}
+.row:last-child { border-bottom: none; }
+.row:hover { background: rgba(201, 176, 245, .04); }
+.row .k {
+  flex: none; font-size: .74rem;
+  letter-spacing: .2em; color: var(--muted);
+}
+.row .v {
+  text-align: right; font-size: .93rem;
+  letter-spacing: .05em; color: var(--text);
+}
+.swatch {
+  display: inline-block; width: 9px; height: 9px;
+  margin-right: 9px; border-radius: 50%;
+  vertical-align: middle; position: relative; top: -1px;
+  background: linear-gradient(140deg, #ddcfff, #9b82d4);
+  box-shadow: 0 0 12px rgba(201, 176, 245, .85);
+}
+
+/* ===== 關係 ===== */
+.bonds { display: grid; }
+.bond {
+  display: flex; align-items: center; gap: 14px;
+  padding: 15px 6px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  transition: background .3s ease;
+}
+.bond:last-child { border-bottom: none; }
+.bond:hover { background: rgba(201,176,245,.04); }
+.bond .avatar {
+  flex: none; width: 40px; height: 40px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--serif); font-size: .82rem;
+  color: var(--lav);
+  background: rgba(201,176,245,.07);
+  border: 1px solid rgba(201,176,245,.22);
+  box-shadow: inset 0 0 20px -8px rgba(201,176,245,.6);
+}
+.bond .info { flex: 1; min-width: 0; }
+.bond .who {
+  font-size: .92rem; color: var(--text);
+  letter-spacing: .06em;
+}
+.bond .role {
+  font-size: .68rem; color: var(--muted);
+  letter-spacing: .18em; margin-top: 2px;
+}
+.bond .tag {
+  flex: none;
+  font-size: .62rem; letter-spacing: .18em;
+  padding: 4px 11px; border-radius: 99px;
+  border: 1px solid var(--line-2);
+  color: var(--lav-deep);
+  background: rgba(201,176,245,.04);
+}
+
+/* ===== 曲目 ===== */
+.tracks { display: grid; }
+.track {
+  display: flex; align-items: baseline;
+  gap: 18px; padding: 14px 6px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  transition: background .3s ease;
+}
+.track:last-child { border-bottom: none; }
+.track:hover { background: rgba(201,176,245,.04); }
+.track .no {
+  flex: none; width: 24px;
+  font-family: var(--serif); font-size: .74rem;
+  color: var(--lav-dim); letter-spacing: .1em;
+  font-variant-numeric: tabular-nums;
+}
+.track .tt {
+  flex: 1; min-width: 0;
+  font-size: .92rem; color: var(--text);
+  letter-spacing: .04em;
+}
+.track .tt small {
+  display: block;
+  font-size: .68rem; color: var(--muted);
+  letter-spacing: .12em; margin-top: 3px;
+}
+.track .dur {
+  flex: none;
+  font-size: .72rem; color: var(--muted);
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== 關鍵詞 ===== */
+.tags {
+  display: flex; flex-wrap: wrap; gap: 9px;
+}
+.tags span {
+  display: inline-block;
+  padding: 7px 16px; border-radius: 99px;
+  font-size: .74rem; letter-spacing: .14em;
+  color: var(--lav);
+  border: 1px solid var(--line-2);
+  background: rgba(201,176,245,.05);
+  transition: background .3s ease, border-color .3s ease, color .3s ease;
+}
+.tags span:hover {
+  background: rgba(201,176,245,.14);
+  border-color: rgba(201,176,245,.5);
+  color: #e0d4ff;
+}
+
+/* 頁尾 */
+.foot { text-align: center; padding: 22px 0 0; }
+.foot .mark {
+  display: inline-grid; place-items: center;
+  width: 36px; height: 36px; margin-bottom: 14px;
+  border: 1px solid var(--line-2); border-radius: 50%;
+  background: rgba(201, 176, 245, .05);
+  box-shadow: 0 0 22px -8px rgba(201, 176, 245, .9);
+  font-family: var(--serif); font-size: .85rem; color: var(--lav);
+}
+.foot p {
+  font-size: .68rem; letter-spacing: .3em;
+  text-indent: .3em; color: var(--muted);
+}
+
+@media (max-width: 520px) {
+  .row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .row .v { text-align: left; }
+  .rule::before, .rule::after { width: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <span class="orb orb-1"></span>
+  <span class="orb orb-2"></span>
+</div>
+
+<main class="page">
+
+  <header class="hero">
+    <div class="clock"><span class="dot"></span>25:00</div>
+    <h1 class="name">宵崎 奏</h1>
+    <p class="roman">YOISAKI KANADE</p>
+    <div class="rule" aria-hidden="true"><i></i></div>
+  </header>
+
+  <blockquote class="quote">
+    <p>誰も救えない曲なんて、意味がない...</p>
+  </blockquote>
+
+  <!-- 主視覺 -->
+  <figure class="portrait">
+    <img src="assets/kanade.jpg" alt="宵崎奏" />
+  </figure>
+
+  <!-- 檔案資料 -->
+  <section class="card">
+    <h2>檔案資料</h2>
+    <div class="file">
+      <div class="row">
+        <span class="k">所屬團體</span>
+        <span class="v">25點，在Nightcord。</span>
+      </div>
+      <div class="row">
+        <span class="k">負責分工</span>
+        <span class="v">作曲 / Composer</span>
+      </div>
+      <div class="row">
+        <span class="k">代表色</span>
+        <span class="v"><i class="swatch"></i>Carnation Lavender</span>
+      </div>
+      <div class="row">
+        <span class="k">生日</span>
+        <span class="v">2 月 10 日</span>
+      </div>
+      <div class="row">
+        <span class="k">年齡</span>
+        <span class="v">17 歲</span>
+      </div>
+      <div class="row">
+        <span class="k">身高</span>
+        <span class="v">160 cm</span>
+      </div>
+      <div class="row">
+        <span class="k">血型</span>
+        <span class="v">A 型</span>
+      </div>
+      <div class="row">
+        <span class="k">興趣</span>
+        <span class="v">尋找即食食品、聽廣播</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 人物簡介 -->
+  <section class="card">
+    <h2>人物簡介</h2>
+    <p>
+      因為過往的經歷與創傷，奏懷抱著「必須創作出能夠救贖他人的音樂」的強烈執念。
+      絕大多數時間都獨自待在昏暗的房間內專心創作，幾乎鮮少出門，是個將一切奉獻給音樂的創作者。
+    </p>
+
+    <figure class="portrait small">
+      <img src="assets/kanade_sub.jpg" alt="宵崎奏細節" />
+    </figure>
+
+    <p>
+      她的音樂帶著獨特的幽靜與沉穩，雖然隱隱透出深沉的憂傷，
+      卻能在最黑暗之處帶來溫柔的救贖感。
+    </p>
+  </section>
+
+  <!-- 關係 -->
+  <section class="card">
+    <h2>關係</h2>
+    <div class="bonds">
+      <div class="bond">
+        <span class="avatar">真</span>
+        <div class="info">
+          <div class="who">朝比奈 まふゆ</div>
+          <div class="role">Asahina Mafuyu</div>
+        </div>
+        <span class="tag">主唱</span>
+      </div>
+      <div class="bond">
+        <span class="avatar">絵</span>
+        <div class="info">
+          <div class="who">東雲 絵名</div>
+          <div class="role">Shinonome Ena</div>
+        </div>
+        <span class="tag">插畫</span>
+      </div>
+      <div class="bond">
+        <span class="avatar">瑞</span>
+        <div class="info">
+          <div class="who">暁山 瑞希</div>
+          <div class="role">Akiyama Mizuki</div>
+        </div>
+        <span class="tag">MV</span>
+      </div>
+      <div class="bond">
+        <span class="avatar">K</span>
+        <div class="info">
+          <div class="who">KAITO</div>
+          <div class="role">セカイの住人</div>
+        </div>
+        <span class="tag">虛擬歌手</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作品 -->
+  <section class="card">
+    <h2>作品</h2>
+    <div class="tracks">
+      <div class="track">
+        <span class="no">01</span>
+        <span class="tt">25時の情熱<small>25-ji no Jounetsu</small></span>
+        <span class="dur">04:08</span>
+      </div>
+      <div class="track">
+        <span class="no">02</span>
+        <span class="tt">カナデトモスソラ<small>Kanade Tomosu Sora</small></span>
+        <span class="dur">03:52</span>
+      </div>
+      <div class="track">
+        <span class="no">03</span>
+        <span class="tt">アイディスマイル<small>ID Smile</small></span>
+        <span class="dur">03:24</span>
+      </div>
+      <div class="track">
+        <span class="no">04</span>
+        <span class="tt">バグ<small>Bug</small></span>
+        <span class="dur">03:14</span>
+      </div>
+      <div class="track">
+        <span class="no">05</span>
+        <span class="tt">ノンブレス・オブリージュ<small>Non-breath Oblige</small></span>
+        <span class="dur">03:06</span>
+      </div>
+      <div class="track">
+        <span class="no">06</span>
+        <span class="tt">ザムザ<small>Zamuza</small></span>
+        <span class="dur">03:32</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 關鍵詞 -->
+  <section class="card">
+    <h2>關鍵詞</h2>
+    <div class="tags">
+      <span># 救贖の音楽</span>
+      <span># 深夜作曲</span>
+      <span># 即食生活</span>
+      <span># 不眠之夜</span>
+      <span># 25時</span>
+      <span># 孤獨與溫柔</span>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="mark">K</div>
+    <p>為了拯救某個人，今夜也繼續作曲。</p>
+  </footer>
+
+</main>
+
+</body>
+</html>
